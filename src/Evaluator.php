@@ -1,6 +1,6 @@
 <?php
 
-namespace choate\matex;
+namespace Matex;
 
 class Exception extends \Exception
 {
@@ -121,9 +121,15 @@ class Evaluator
         return call_user_func_array($routine['ref'], $this->proArguments($arguments));
     }
 
-    private function isNumer($value): bool
+    private function isNumer($value)
     {
-        return is_float($value) || is_integer($value);
+        // 不支持科学记数法
+        return strpos($value, 'e') === false && is_numeric($value);
+    }
+
+    private function isString($value)
+    {
+        return is_string($value) && !is_numeric($value);
     }
 
     private function checkNumers($a, $b)
@@ -134,7 +140,7 @@ class Evaluator
 
     private function checkString($a)
     {
-        if (is_string($a)) {
+        if ($this->isString($a)) {
             return;
         }
         throw new Exception('Non-string value', 9);
@@ -163,7 +169,7 @@ class Evaluator
         }
         switch ($kind) {
             case 1:
-                $value = (float)$name;
+                $value = $name;
                 break;
             case 2:
                 $value = $this->getVariable($name);
@@ -187,14 +193,12 @@ class Evaluator
             $term = $this->term();
             // 数据运算需要检测变量是否数字
             $this->checkNumers($value, $term);
-            $value = number_format($value, $this->sacle, '.', '');
-            $term = number_format($term, $this->sacle, '.', '');
             switch ($char) {
                 case '^':
                     $value = number_format($value ** $term, $this->sacle, '.', '');
                     break;
             }
-            $value = (float)rtrim($value, '0');
+            $value = rtrim($value, '0');
         }
         return $value;
     }
@@ -208,8 +212,6 @@ class Evaluator
             $term = $this->exponentiationOperation();
             // 数据运算需要检测变量是否数字
             $this->checkNumers($value, $term);
-            $value = number_format($value, $this->sacle, '.', '');
-            $term = number_format($term, $this->sacle, '.', '');
             switch ($char) {
                 case '*':
                     $value = bcmul($value, $term, $this->sacle);
@@ -221,7 +223,7 @@ class Evaluator
                     $value = bcmod($value, $term, $this->sacle);
                     break;
             }
-            $value = (float)rtrim($value, '0');
+            $value = rtrim($value, '0');
         }
         return $value;
     }
@@ -233,15 +235,13 @@ class Evaluator
         while (in_array($char = $this->text[$this->pos] ?? false, ['+', '-'])) {
             $this->pos++;
             $term = $this->arithmeticOperation();
-            if (($char == '+') && is_string($value)) {
+            if (($char == '+') && $this->isString($value)) {
                 $this->checkString($term);
                 $value .= $term;
                 continue;
             }
             // 数据运算需要检测变量是否数字
             $this->checkNumers($value, $term);
-            $value = number_format($value, $this->sacle, '.', '');
-            $term = number_format($term, $this->sacle, '.', '');
             switch ($char) {
                 case '+':
                     $value = bcadd($value, $term, $this->sacle);
@@ -250,7 +250,7 @@ class Evaluator
                     $value = bcadd($value, -$term, $this->sacle);
                     break;
             }
-            $value = (float)rtrim($value, '0');
+            $value = rtrim($value, '0');
         }
         return $value;
     }
