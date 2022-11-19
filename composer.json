@@ -1,12 +1,18 @@
 {
-	"name": "madorin/matex",
+	"name": "choate/matex",
 	"description": "PHP Mathematical expression parser and evaluator",
 	"type": "library",
 	"keywords": ["evaluator", "parser", "calculator", "expression", "formula", "math", "eval"],
-	"homepage": "https://github.com/madorin/matex",
+	"homepage": "https://github.com/choate/matex",
 	"readme": "README.md",
 	"license": "MIT",
+	"version": "0.0.1",
 	"authors": [
+		{
+			"name": "Choate",
+			"homepage": "https://github.com/choate",
+			"role": "Developer"
+		},
 		{
 			"name": "Dorin Marcoci",
 			"email": "dorin.marcoci@gmail.com",
@@ -15,15 +21,15 @@
 		}
 	],
 	"support": {
-		"source": "https://github.com/madorin/matex",
-		"issues": "https://github.com/madorin/matex/issues"
+		"source": "https://github.com/choate/matex",
+		"issues": "https://github.com/choate/matex/issues"
 	},
 	"require": {
-		"php": ">=7.2"
+		"php": ">=7.0.0"
 	},
 	"autoload": {
 		"psr-4": {
-			"Matex\\": "src"
+			"choate\\matex\\": "src"
 		}
 	},
 	"minimum-stability": "dev",

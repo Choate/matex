@@ -15,7 +15,7 @@ Make sure the [Composer](https://getcomposer.org) is installed and your project 
 Execute in console the following code in order to connect Matex library:
 
 ```bash
-$ composer require madorin/matex
+$ composer require choate/matex
 ```
 
 It will adjust the composer.json file of your project by adding Matex library as an requrement.
@@ -39,7 +39,7 @@ Once everything is properly configured, the `\Matex\` namespace classes should b
 The following code should run without any errors and will output `3` as result:
 
 ```php
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 echo $evaluator->execute('1 + 2');
 ```
 
@@ -59,9 +59,20 @@ Matex supports the following operators:
 	/	Division
 	^	Exponentiation
 	%	Modulus
+    ==	Equal
+    !=	Not equal
+    <	Less than
+    <=	Less than or equal to
+    >	Greater than
+    >=	Greater than or equal to 
+    &&	And
+    ||	Or
+   
 
 
 ## Author
+
+Choate - <choate.yao@gmail> - https://github.com/choate
 
 Dorin Marcoci - <dorin.marcoci@gmail.com> - <https://www.marcodor.com>
 

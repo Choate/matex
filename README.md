@@ -10,7 +10,8 @@ PHP Mathematical expression parser and evaluator
 
 * Fast evaluation
 * Compact codebase
-* Operators: + - * / ^ %
+* Operators: + - * / ^ % != == < <= > >= && ||
+* Operators Precedence: [PHP Operators Precedence](https://www.php.net/manual/en/language.operators.precedence.php)
 * Brackets, nested, unlimited levels
 * Variables: predefined or estimated dynamically
 * Functions: predefined or connected dynamically
@@ -23,7 +24,7 @@ PHP Mathematical expression parser and evaluator
 Using [Composer](https://getcomposer.org) run
 
 ```bash
-$ composer require madorin/matex
+$ composer require choate/matex
 ```
 
 See [manual](doc/MANUAL.md) for more details and options.
@@ -33,19 +34,19 @@ See [manual](doc/MANUAL.md) for more details and options.
 
 Basic:
 ```php
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 echo $evaluator->execute('1 + 2');
 ```
 
 String concatenation:
 ```php
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 echo $evaluator->execute('"String" + " " + "concatenation"');
 ```
 
 Variables:
 ```php
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 $evaluator->variables = [
 	'a' => 1,
 	'b' => 2
@@ -63,7 +64,7 @@ public function doVariable($name, &$value) {
 	}
 }
 
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 $evaluator->variables = [
 	'a' => 1
 	];
@@ -80,7 +81,7 @@ static function sum($arguments) {
 	return $result;
 }
 
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 $evaluator->functions = [
 	'sum' => ['ref' => '\\Space\\Class::sum', 'arc' => null]
 ];
@@ -146,7 +147,7 @@ function minAdd($a, $b) {
 }
 
 // Let's do some calculations
-$evaluator = new \Matex\Evaluator();
+$evaluator = new \choate\matex\Evaluator();
 $evaluator->variables = [
 	'a' => 1,
 	'bet' => -10.59,
@@ -166,6 +167,8 @@ See [examples](examples/README.md) for code samples.
 
 
 ## Author
+
+Choate - <choate.yao@gmail> - https://github.com/choate
 
 Dorin Marcoci - <dorin.marcoci@gmail.com> - <https://www.marcodor.com>
 

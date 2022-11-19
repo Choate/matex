@@ -7,7 +7,7 @@
 
 require dirname(__DIR__).'\vendor\autoload.php';
 
-use \Matex\Evaluator;
+use \choate\matex\Evaluator;
 
 $evaluator = new Evaluator();
 $evaluator->variables = [
